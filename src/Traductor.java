@@ -29,7 +29,7 @@ public class Traductor {
         }
         for (int a =0;a<Cadena.size();a++){
             if (almacen.buscar(Cadena.get(a))==true){
-                String prueba = (String) almacen.get(Cadena.get(a));
+                String prueba = (String) (almacen.get(Cadena.get(a)));
                 traduccion = traduccion + prueba+" ";
             }else{
                 traduccion = traduccion +"*"+Cadena.get(a)+"*"+" ";
