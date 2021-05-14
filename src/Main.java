@@ -54,7 +54,6 @@ public class Main {
                     valor = partes[2];
                 }
 
-                System.out.println(Arrays.toString(partes));
                 almacen.add(llave,valor);
             }
 
