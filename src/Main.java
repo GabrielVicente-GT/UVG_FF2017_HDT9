@@ -1,3 +1,8 @@
+/***
+ * @author Diego José Franco Pacay 20240
+ * @author Gabriel Alejandro Vicente Lorenzo 20498
+ */
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -6,12 +11,23 @@ import java.util.Map;
 import java.util.Scanner;
 import java.util.Vector;
 
+
 public class Main {
     public static void main(String[]args){
+
+        /**
+         * instancias de Factory, Interpams, Vector y Traductor, necesarios para el funcionamiento del main
+         */
+
+
         Factory<String,String> imp = new Factory<String,String>();
         InterMaps almacen;
         Vector <String> varios = new Vector<String>();
         Traductor esperanza = new Traductor();
+
+        /**
+         * seleccion de la implementación
+         */
 
         int res = 0;
         Scanner s = new Scanner(System.in);
@@ -34,9 +50,16 @@ public class Main {
             }
         }
 
+        /**
+         * Dependiendo de la seleccion del usuario, se devuelve la implementación en el Factory
+         */
+
+
         almacen = imp.getStack(res);
 
-
+        /**
+         * El almacen es llenado con las traducciones gracias al archivo Spanish.txt
+         */
 
         try{
             File file = new File("Spanish.txt");
@@ -84,7 +107,7 @@ public class Main {
         }
 
         /***
-         * Impresion de lo que hay en el archivo y se pasa la calculadora
+         * Impresion de lo que hay en el archivo y se pasa al traductor
          */
 
         System.out.println("\nOraciones a traducir en texto.txt");
@@ -97,6 +120,11 @@ public class Main {
 
         int numero = 0;
         int a = 0;
+
+        /**
+         * Para todas las oraciones encontradas en el texto.txt se hace la traducción
+         */
+
         while(a<varios.size()){
             numero++;
             try{

@@ -1,7 +1,12 @@
 import static org.junit.Assert.*;
 
+/**
+ * pruebas unitarias
+ */
 public class PruebasBuscar {
-
+    /**
+     * pruebas de buscar
+     */
     @org.junit.Test
     public void buscarHash() {
         HashingMap almacen = new HashingMap();
@@ -11,6 +16,9 @@ public class PruebasBuscar {
         assertEquals(true,almacen.buscar("dos"));
     }
 
+    /**
+     * pruebas de buscar
+     */
     @org.junit.Test
     public void buscarRedBlack() {
         RedBlackTree almacen = new RedBlackTree();

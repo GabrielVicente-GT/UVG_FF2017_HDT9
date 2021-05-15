@@ -2,6 +2,11 @@
 
 import java.util.NoSuchElementException;
 
+/**
+ * implementacion RedBlackTree
+ * @param <Key> llave tipo
+ * @param <Value> valor tipo
+ */
 
 public class RedBlackTree<Key extends Comparable<Key>, Value> implements InterMaps <Key,Value> {
 
@@ -27,14 +32,16 @@ public class RedBlackTree<Key extends Comparable<Key>, Value> implements InterMa
     }
 
     /**
-     * Initializes an empty symbol table.
+     * inicia con el primero vacio
      */
     public RedBlackTree() {
     }
 
-    /***************************************************************************
-     *  Node helper methods.
-     ***************************************************************************/
+    /**
+     * identificador de nodos
+     * @param x nodo
+     * @return color
+     */
     // is node x red; false if x is null ?
     private boolean isRed(Node x) {
         if (x == null) return false;
@@ -49,33 +56,32 @@ public class RedBlackTree<Key extends Comparable<Key>, Value> implements InterMa
 
 
     /**
-     * Returns the number of key-value pairs in this symbol table.
-     * @return the number of key-value pairs in this symbol table
+     * size
+     * @return el numero de valor-llave
      */
     public int size() {
         return size(root);
     }
 
     /**
-     * Is this symbol table empty?
-     * @return {@code true} if this symbol table is empty and {@code false} otherwise
+     * isEmpty
+     * @return verifica si esta vacio
      */
     public boolean isEmpty() {
         return root == null;
     }
 
 
-    /***************************************************************************
+    /**
      *  Standard BST search.
-     ***************************************************************************/
+     */
 
 
     /**
-     * Returns the value associated with the given key.
-     * @param key the key
-     * @return the value associated with the given key if the key is in the symbol table
-     *     and {@code null} if the key is not in the symbol table
-     * @throws IllegalArgumentException if {@code key} is {@code null}
+     * Retorna valor asociado
+     * @param key llave
+     * @return valor asociado
+     * @throws IllegalArgumentException
      */
     public Value get(Key key) {
         if (key == null) throw new IllegalArgumentException("argument to get() is null");
@@ -95,19 +101,18 @@ public class RedBlackTree<Key extends Comparable<Key>, Value> implements InterMa
     }
 
     /**
-     * Does this symbol table contain the given key?
-     * @param key the key
-     * @return {@code true} if this symbol table contains {@code key} and
-     *     {@code false} otherwise
-     * @throws IllegalArgumentException if {@code key} is {@code null}
+     * busca
+     * @param key llave
+     * @return true or false
+     * @throws IllegalArgumentException dependiendo de la busqueda
      */
     public boolean buscar(Key key) {
         return get(key) != null;
     }
 
-    /***************************************************************************
+    /**
      *  Red-black tree insertion.
-     ***************************************************************************/
+     **/
 
     /**
      * Inserts the specified key-value pair into the symbol table, overwriting the old
@@ -455,10 +460,7 @@ public class RedBlackTree<Key extends Comparable<Key>, Value> implements InterMa
     }
 
     /**
-     * Return the key in the symbol table of a given {@code rank}.
-     * This key has the property that there are {@code rank} keys in
-     * the symbol table that are smaller. In other words, this key is the
-     * ({@code rank}+1)st smallest key in the symbol table.
+     * Seleccion
      *
      * @param  rank the order statistic
      * @return the key in the symbol table of given {@code rank}
@@ -472,8 +474,12 @@ public class RedBlackTree<Key extends Comparable<Key>, Value> implements InterMa
         return select(root, rank);
     }
 
-    // Return key in BST rooted at x of given rank.
-    // Precondition: rank is in legal range.
+    /**
+     * seleccion llave
+     * @param x nodo
+     * @param rank rango
+     * @return la seleccion
+     */
     private Key select(Node x, int rank) {
         if (x == null) return null;
         int leftSize = size(x.left);
@@ -493,7 +499,12 @@ public class RedBlackTree<Key extends Comparable<Key>, Value> implements InterMa
         return rank(key, root);
     }
 
-    // number of keys less than key in the subtree rooted at x
+    /**
+     * rango
+     * @param key llave
+     * @param x nodo
+     * @return rango
+     */
     private int rank(Key key, Node x) {
         if (x == null) return 0;
         int cmp = key.compareTo(x.key);
@@ -525,15 +536,21 @@ public class RedBlackTree<Key extends Comparable<Key>, Value> implements InterMa
     }
 
 
-    // does this binary tree satisfy symmetric order?
-    // Note: this test also ensures that data structure is a binary tree since order is strict
+    /**
+     * size
+     * @return size
+     */
     private boolean isBST() {
         return isBST(root, null, null);
     }
 
-    // is the tree rooted at x a BST with all keys strictly between min and max
-    // (if min or max is null, treat as empty constraint)
-    // Credit: Bob Dondero's elegant solution
+    /**
+     * ver si esta correcto el redbalcktree
+     * @param x nodo
+     * @param min llave minima
+     * @param max llave maxima
+     * @return true or false
+     */
     private boolean isBST(Node x, Key min, Key max) {
         if (x == null) return true;
         if (min != null && x.key.compareTo(min) <= 0) return false;
@@ -541,7 +558,10 @@ public class RedBlackTree<Key extends Comparable<Key>, Value> implements InterMa
         return isBST(x.left, min, x.key) && isBST(x.right, x.key, max);
     }
 
-    // are the size fields correct?
+    /**
+     * ver si esta correcto
+     * @return
+     */
     private boolean isSizeConsistent() { return isSizeConsistent(root); }
     private boolean isSizeConsistent(Node x) {
         if (x == null) return true;
@@ -550,8 +570,10 @@ public class RedBlackTree<Key extends Comparable<Key>, Value> implements InterMa
     }
 
 
-    // Does the tree have no red right links, and at most one (left)
-    // red links in a row on any path?
+    /**
+     * ver si es 23
+     * @return true or false
+     */
     private boolean is23() { return is23(root); }
     private boolean is23(Node x) {
         if (x == null) return true;
@@ -561,7 +583,10 @@ public class RedBlackTree<Key extends Comparable<Key>, Value> implements InterMa
         return is23(x.left) && is23(x.right);
     }
 
-    // do all paths from root to leaf have same number of black edges?
+    /**
+     * ver si esta balanceado
+     * @return true or false
+     */
     private boolean isBalanced() {
         int black = 0;     // number of black links on path from root to min
         Node x = root;
@@ -572,7 +597,12 @@ public class RedBlackTree<Key extends Comparable<Key>, Value> implements InterMa
         return isBalanced(root, black);
     }
 
-    // does every path from the root to a leaf have the given number of black links?
+    /**
+     * ver si esta balanceado
+     * @param x nodo
+     * @param black negros cantidad
+     * @return true or false
+     */
     private boolean isBalanced(Node x, int black) {
         if (x == null) return black == 0;
         if (!isRed(x)) black--;

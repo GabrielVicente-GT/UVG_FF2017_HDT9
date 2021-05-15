@@ -2,8 +2,15 @@ import java.io.File;
 import java.util.Scanner;
 
 import static org.junit.Assert.*;
+
+/**
+ * clase del profiler
+ */
 public class Profiler {
     @org.junit.Test
+    /**
+     * nos permite hacer una prueba que regrese tiempo dependiendo la implementacion usada
+     */
     public void LlegarHash() {
         InterMaps almacen = new RedBlackTree();
         try{
